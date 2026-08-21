@@ -11,9 +11,12 @@ As mentioned above this lab was created on Microsoft Entra ID free tier, no Azur
 P2 features (PIM, Access Reviews, Access Packages) are out of scope for this lab given that they are only available to those who possess a required license. 
 
 ## Environment
-The environment was set up inside of the "notioneverythinggmail.onmicrosoft.com" domain using the Entra ID free tier. The object count(s) consist of: 9 users, 5 groups and 0 applications. 
-(insert screenshot(s) here)
+The environment was set up inside of the "notioneverythinggmail.onmicrosoft.com" domain using the Entra ID free tier. The object count(s) consist of: 8 users, 5 groups and 0 applications. 
+![The environment in regards to users](screenshots/environment-tenant-overview.png)
+![The environment in regards to tenant overview](screenshots/environment-tenant-overview.png)
+
 Group inventory includes: IT Admin, Sales, HR, DisabledUsers and Professional Accountants
+![The environment meant to simulate departments which would commonly be found inside of a business](screenshots/environment-all-groups.png)
 
 ## Identity Lifecycle (Joiner-Mover-Leaver)
 For this specific lab a new user was created with the name "Mister Mover". This was the target user meant to demonstrate the Joiner-Mover-Leaver lifecycle process. 
