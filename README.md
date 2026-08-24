@@ -45,11 +45,11 @@ The reason for this is to compare the differences between the group membership t
 
 ![Contrast between the two](screenshots/privileged-role-group-membership-only.png)
 
-In contrast of the hollow shells, JohnAdministrator123 was given one role and therefore had administrative power which exceeded all of the other example users within this exercise. This standing privilege which JohnAdministrator123 contained is the exact thing which Privileged Identity Management (PIM) exists to address and eliminate. By reviewing, assessing and auditing users on a consistent basis it allows for the discovery (and subsequent addressal) of users who have standing privilege(s) that are non-applicable to their role/department/title.   
+In contrast to the hollow shells, JohnAdministrator123 was given one role and therefore had administrative power which exceeded all of the other example users within this exercise. This standing privilege which JohnAdministrator123 contained is the exact thing which Privileged Identity Management (PIM) exists to address and eliminate. By reviewing, assessing and auditing users on a consistent basis it allows for the discovery (and subsequent addressal) of users who have standing privilege(s) that are non-applicable to their role/department/title.   
 
 ## Deletion and Recovery Testing
 While the Mister Mover JML lifecycle ultimately concluded with account disabling and removal of any previous assignments to attain zero residual access, I did also want to experiment with purposeful deletion of groups and how membership within groups is affected. 
-During the initial environment set up there was a group created entitled "Engineering", upon the creation of this group a user was subsequently placed inside of this group - "MarSue123". I wanted to verify what would happen in the event that a group was deleted with members currently present within. My primary question was "would I be required to remove the members from the group before full-deletion could be completed?" Therefore I initiated the deletion of the Engineering group and was not prompted with any requirements which needed to be met in order to soft-delete. 
+During the initial environment set up there was a group created entitled "Engineering". Upon the creation of this group a user was subsequently placed inside of this group - "MarSue123". I wanted to verify what would happen in the event that a group was deleted with members currently present within. My primary question was "would I be required to remove the members from the group before full-deletion could be completed?" Therefore I initiated the deletion of the Engineering group and was not prompted with any requirements which needed to be met in order to soft-delete. 
 
 ![Engineering group soft-deletion](screenshots/engineering-deletiontype-softdelete.png)
 
@@ -62,7 +62,7 @@ My question was answered; I did not have to remove the member(s) from within the
 The Engineering creation and subsequent hard-deletion had cleared up any misconceptions that I had about the basic principle of deletion and recovery on Entra ID. After the process was completed I couldn't help but wonder a more specific question in regards to deletion and recovery; "I have already verified that soft-deletion & hard-deletion process are both able to be executed without removal of members present within. But if I were to soft-delete a group with members actively inside, would the members still retain their memberships even during soft-deletion? Additionally upon restoration of a soft-deleted group, would all members retain their placement within the group? Would the group be reset and emptied upon restoration?" And this curiosity is ultimately what led to the second experiment conducted as part of the deletion and recovery testing. 
 
 I created a new, purposeful group entitled "Professional Accountants" with the description of "This group is going to be deleted immediately". I then added 3 members to the group, one of which was the target user for verifying my question - "JonnyAppleseed123". I also added one owner in order to verify if the result would affect one without the other - "MarSue123". One member (JonnyAppleseed123) and the owner (MarSue123), checked before, during and after. After adding all four users to this group I began by screenshotting all of their object IDs to ensure proper matching of the results. Given that any/all deleted Groups (and users) enter a 30 day window before permanent deletion.
-![30 Day window](screenshots/deleted-users-30-day-window.png)
+![30 Day window shown on a deleted user](screenshots/deleted-users-30-day-window.png)
 
 ![Memberships before soft delete](screenshots/restore-test-user-memberships-before.png)
 ![Professional Accountants members before deletion](screenshots/restore-test-members-before.png)
@@ -74,7 +74,7 @@ I then initiated the process of soft-deleting the Professional Accountants group
 ![Owners after restore](screenshots/restore-test-owner-after.png)
 
 ## What Soft-Delete Actually Revokes
-As mentioned above during the soft-deletion of the Professional Accountants group, neither the member nor the owner showed any membership in the group. This was verified specifically by assessing the specific user's Groups page (JonnyAppleseed123) in addition to the owner's Groups page (MarSue123). I made sure to go directly to the target user's Groups page, the portal directs you to the group's state, so I checked the user's instead.  
+As mentioned above during the soft-deletion of the Professional Accountants group, neither the member nor the owner showed any membership in the group. This was verified specifically by assessing the specific user's Groups page (JonnyAppleseed123) in addition to the owner's Groups page (MarSue123). I made sure to go directly to the target user's Groups page. The portal directs you to the group's state, so I checked the user's instead.  
 
 ![Membership gone during the soft deletion of the group](screenshots/membership-gone-during-soft-delete.png)
 The conclusion: Object recoverability is not continuity of entitlement. Restoring within the 30 day window grants you the object back; however, access was interrupted for the entire window. 
@@ -89,9 +89,9 @@ The conclusion: Object recoverability is not continuity of entitlement. Restorin
 - Two full timeline views were captured: the user-management timeline from the start of the lab to its conclusion, and the group-management timeline from the first group created through the experiments. ![Entire user management timeline](screenshots/audit-timeline-usermanagement.png) ![Entire group management timeline](screenshots/audit-timeline-groupmanagement.png)
 
 ## Known Limitations
-- The biggest known limitation to mention: Groups grant nothing (No application(s), licenses, or access packages consume. Membership is a label, not entitlement)
+- The biggest known limitation: groups grant nothing. No application, license, or access package consumes them — membership here is a label, not an entitlement.
 - DisabledUsers has no policy attached
-- Portal language versus platform behavior: the group deletion confirmation and success message make no mention of the 30-day recovery window, presenting deletion as final. The object is in fact recoverable; a gap between what the UI communicates and what the platform does. Both deletion paths were tested:
+- Portal language versus platform behavior: the group deletion confirmation and success message make no mention of the 30-day recovery window, presenting deletion as final. The object is in fact recoverable; a gap between what the UI communicates and what the platform does. Both deletion paths were tested on a purpose-made throwaway group:
 
   ![Bulk delete confirmation — no mention of recovery](screenshots/delete-confirm-bulk-no-recovery-mention.png)
   
